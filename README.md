@@ -1,14 +1,15 @@
-# conscriptor
+# Conscriptor
 
 [![Gem Version](https://badge.fury.io/rb/conscriptor.svg)](https://rubygems.org/gems/conscriptor)
 [![Circle](https://circleci.com/gh/jeremylightsmith/conscriptor/tree/main.svg?style=shield)](https://app.circleci.com/pipelines/github/jeremylightsmith/conscriptor?branch=main)
 [![Code Climate](https://codeclimate.com/github/jeremylightsmith/conscriptor/badges/gpa.svg)](https://codeclimate.com/github/jeremylightsmith/conscriptor)
 
-TODO: Description of this gem goes here.
+This is several tools that we have found extremely useful when writing scripts or debugging code in ruby and rails projects.
 
 ---
 
 - [Quick start](#quick-start)
+- [Examples](#examples)
 - [Support](#support)
 - [License](#license)
 - [Code of conduct](#code-of-conduct)
@@ -22,6 +23,15 @@ $ gem install conscriptor
 
 ```ruby
 require "conscriptor"
+```
+
+## Examples
+
+```ruby
+include Conscriptor
+
+tbd...
+
 ```
 
 ## Support
