@@ -1,33 +1,29 @@
-require "bundler/gem_tasks"
-require "rake/testtask"
-require "rubocop/rake_task"
+require 'bundler/gem_tasks'
+require 'rubocop/rake_task'
+require 'rspec/core/rake_task'
 
-Rake::TestTask.new(:test) do |t|
-  t.libs << "test"
-  t.libs << "lib"
-  t.test_files = FileList["test/**/*_test.rb"]
-end
+RSpec::Core::RakeTask.new(:spec)
 
 RuboCop::RakeTask.new
 
-task default: %i[test rubocop]
+task default: %i[spec rubocop]
 
 # == "rake release" enhancements ==============================================
 
-Rake::Task["release"].enhance do
+Rake::Task['release'].enhance do
   puts "Don't forget to publish the release on GitHub!"
-  system "open https://github.com/jeremylightsmith/conscriptor/releases"
+  system 'open https://github.com/jeremylightsmith/conscriptor/releases'
 end
 
 task :disable_overcommit do
-  ENV["OVERCOMMIT_DISABLE"] = "1"
+  ENV['OVERCOMMIT_DISABLE'] = '1'
 end
 
 Rake::Task[:build].enhance [:disable_overcommit]
 
 task :verify_gemspec_files do
   git_files = `git ls-files -z`.split("\x0")
-  gemspec_files = Gem::Specification.load("conscriptor.gemspec").files.sort
+  gemspec_files = Gem::Specification.load('conscriptor.gemspec').files.sort
   ignored_by_git = gemspec_files - git_files
   next if ignored_by_git.empty?
 
@@ -51,9 +47,9 @@ task bump: %w[bump:bundler bump:ruby bump:year]
 
 namespace :bump do
   task :bundler do
-    version = Gem.latest_version_for("bundler").to_s
-    replace_in_file ".circleci/config.yml", /bundler -v (\S+)/ => version
-    replace_in_file "Gemfile.lock", /^BUNDLED WITH\n\s+(\d\S+)$/ => version
+    version = Gem.latest_version_for('bundler').to_s
+    replace_in_file '.circleci/config.yml', /bundler -v (\S+)/ => version
+    replace_in_file 'Gemfile.lock', /^BUNDLED WITH\n\s+(\d\S+)$/ => version
   end
 
   task :ruby do
@@ -62,20 +58,20 @@ namespace :bump do
     latest = RubyVersions.latest
     latest_patches = RubyVersions.latest_supported_patches
 
-    replace_in_file "conscriptor.gemspec", /ruby_version = .*">= (.*)"/ => lowest
-    replace_in_file ".rubocop.yml", /TargetRubyVersion: (.*)/ => lowest_minor
-    replace_in_file ".circleci/config.yml", /default: "([\d.]+)"/ => latest
-    replace_in_file ".circleci/config.yml", /version: (\[.+\])/ => latest_patches.inspect
+    replace_in_file 'conscriptor.gemspec', /ruby_version = .*">= (.*)"/ => lowest
+    replace_in_file '.rubocop.yml', /TargetRubyVersion: (.*)/ => lowest_minor
+    replace_in_file '.circleci/config.yml', /default: "([\d.]+)"/ => latest
+    replace_in_file '.circleci/config.yml', /version: (\[.+\])/ => latest_patches.inspect
   end
 
   task :year do
-    replace_in_file "LICENSE.txt", /\(c\) (\d+)/ => Date.today.year.to_s
+    replace_in_file 'LICENSE.txt', /\(c\) (\d+)/ => Date.today.year.to_s
   end
 end
 
-require "date"
-require "open-uri"
-require "yaml"
+require 'date'
+require 'open-uri'
+require 'yaml'
 
 def replace_in_file(path, replacements)
   contents = IO.read(path)
@@ -114,7 +110,7 @@ module RubyVersions
 
     def versions
       @_versions ||= begin
-        yaml = URI.open("https://raw.githubusercontent.com/ruby/www.ruby-lang.org/HEAD/_data/downloads.yml")
+        yaml = URI.open('https://raw.githubusercontent.com/ruby/www.ruby-lang.org/HEAD/_data/downloads.yml')
         YAML.safe_load(yaml, symbolize_names: true)
       end
     end

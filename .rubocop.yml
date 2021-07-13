@@ -1,5 +1,4 @@
 require:
-  - rubocop-minitest
   - rubocop-packaging
   - rubocop-performance
   - rubocop-rake
@@ -27,21 +26,22 @@ Layout/SpaceAroundEqualsInParameterDefault:
 Metrics/AbcSize:
   Max: 20
   Exclude:
-    - "test/**/*"
+    - "spec/**/*"
 
 Metrics/BlockLength:
   Exclude:
     - "*.gemspec"
+    - "spec/**/*"
     - "Rakefile"
 
 Metrics/ClassLength:
   Exclude:
-    - "test/**/*"
+    - "spec/**/*"
 
 Metrics/MethodLength:
   Max: 18
   Exclude:
-    - "test/**/*"
+    - "spec/**/*"
 
 Metrics/ParameterLists:
   Max: 6
@@ -77,7 +77,7 @@ Style/NumericPredicate:
   Enabled: false
 
 Style/StringLiterals:
-  EnforcedStyle: double_quotes
+  EnforcedStyle: single_quotes
 
 Style/TrivialAccessors:
   AllowPredicates: true
