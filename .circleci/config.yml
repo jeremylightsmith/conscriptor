@@ -53,7 +53,8 @@ jobs:
       - checkout
       - bundle_install:
           version: << parameters.version >>
-      - run: bundle exec rake test TESTOPTS="--ci-dir=./reports"
+      - run: mkdir ./reports
+      - run: bundle exec rspec --format progress --format RspecJunitFormatter -o ./reports/rspec.xml
       - store_test_results:
           path: ./reports
 
