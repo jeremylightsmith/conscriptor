@@ -1,11 +1,11 @@
 require_relative './histogram'
-require 'logger'
+require_relative './simple_logger'
 
 module Conscriptor
   class EventCounter
     include Histogram
 
-    def initialize(logger=Logger.new($stdout))
+    def initialize(logger=simple_logger)
       @logger = logger
       clear
     end

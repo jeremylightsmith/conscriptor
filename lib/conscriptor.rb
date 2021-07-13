@@ -88,8 +88,8 @@ module Conscriptor
 
   # usage:
   # start_timer total: Lesson.count, report_every: 100
-  def start_timer(name: nil, total: nil, report_every: nil, log: nil)
-    @progress = Conscriptor::ProgressReporter.new(name: name, total: total, report_every: report_every, log: log)
+  def start_timer(name: nil, total: nil, report_every: nil, logger: nil)
+    @progress = Conscriptor::ProgressReporter.new(name: name, total: total, report_every: report_every, logger: logger)
   end
 
   def inc_timer(by: 1)

@@ -1,4 +1,4 @@
-require 'logger'
+require_relative './simple_logger'
 
 module Conscriptor
   class ProgressReporter
@@ -8,7 +8,7 @@ module Conscriptor
       @name = name
       @total = total
       @report_every = report_every || 1
-      @logger = logger || Logger.new($stdout)
+      @logger = logger || simple_logger
       @count = 0
       @start_time = Time.now
     end
